@@ -32,22 +32,33 @@ foreach($files as $file){
 }
 
 // In with the new
-$apiKey = "GIPHY_API_KEY";
+$apiKey = "dhyKXWGT4tRHkK24m6bKPudLr1wWMdJa";
 $url = "https://api.giphy.com/v1/gifs/search?api_key=" . $apiKey . "&q=" . $search;
 $result = apiCall($url);
 $json = json_decode($result, true);
 $gifNumber = count($json['data']);
 $selectNumber = rand(0, $gifNumber - 1);
-$gifImage = $json['data'][$selectNumber]["images"]["fixed_height"]["url"];
+$gifImage = $json['data'][$selectNumber]["images"]["fixed_height"];
+$gifUrl = $gifImage["url"];
+$gifWidth = $gifImage["width"];
+$gifHeight = $gifImage["height"];
 $path = "./downloaded.gif";
-$result = apiCall($gifImage);
+$result = apiCall($gifUrl);
 file_put_contents($path, $result);
 exec("convert ". $path . " -coalesce imgs/gif_%05d.gif");
 
 // All out
-$filelist = glob($folder . "/*.gif");
-$fileNumber = count($filelist);
+$fileList = glob($folder . "/*.gif");
+$fileNumber = count($fileList);
 
-echo(json_encode($fileNumber));
+$gifDimensions = array("width" => $gifWidth, "height" => $gifHeight);
+$gifData = array("url" => $gifUrl, "dimensions" => $gifDimensions);
+$fileData = array("total" => $fileNumber, "filelist" => $fileList);
+$data = array("searchphrase" => $search, "files" => $fileData, "original" => $gifData);
+
+header( "HTTP/1.1 200 OK" );
+header("Access-Control-Allow-Origin: *");
+
+echo(json_encode($data));
 
 ?>

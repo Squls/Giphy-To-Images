@@ -6,16 +6,42 @@ This was deviced as part of project for [EMF Camp](https://emfcamp.org)'s 2018 c
 
 ### Use
 
-Calling this script will return a single number. This denotes the number of frames that the GIF has been split into. Any fetching and/or processing of the frame images will need to be done on the requesters end. The image prefixed with *gif_* followed by a five digit frame number. For example *gif_00000.gif*.
+Calling this script will return JSON containing information on the original GIF and the resulting generated frames.
+
+Example response:
+```
+{
+"searchphrase":"cat",
+"files": {
+	"total":112,
+	"filelist":["imgs\/gif_00000.gif","imgs\/gif_00001.gif","imgs\/gif_00002.gif"],
+},
+"original": {
+	"url":"https:\/\/media0.giphy.com\/media\/Lp5wuqMOmLUaAd0jBG\/200.gif",
+	"dimensions":{
+		"width":"200",
+		"height":"200"
+		}
+	}
+}
+```
 
 1. **Without Parameters:**
-The script can be called without any parameters. This will default to using https://random-word-api.herokuapp.com and will return GIFs related to a random word.
+The script can be called without any parameters. This will default to using [Random Word API](https://random-word-api.herokuapp.com) and will return GIFs related to a random word.
 
 2. **Search Parameter:**
 At the moment the script only accepts one parameter *search*. This will return GIFs related to the search phrase. For example:
 ```giftoimages.php?search={search_phrase}```
  
 ### To Do
-* Add *key* parameter. At the moment Giphy API key is hard coded into PHP.
-* Add *type* parameter. Files returned are in GIF. Would be good if user could request the file format required.
-* Increase information returned in JSON i.e. status code, list of images, original GIF url, dimensions
+* Add parameters:
+**key** - At the moment Giphy API key is hard coded into PHP.
+**type** - Files are returned are as GIFs. Would be good if user could request the file format required.
+* Increase information returned in JSON:
+status code
+~~list of images~~
+~~original GIF url~~
+~~dimensions~~
+response time
+~~search phrase~~
+file info
