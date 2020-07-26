@@ -63,7 +63,7 @@ $fileList = glob($folder . "/*." . $fileExt);
 $fileNumber = count($fileList);
 
 $message = "The request is OK.";
-$status = array("code" => 200, "description" => "200 OK", "message" => $message);
+$status = array("code" => 200, "description" => "OK", "message" => $message);
 $gifDimensions = array("width" => $gifWidth, "height" => $gifHeight);
 $gifData = array("url" => $gifUrl, "dimensions" => $gifDimensions);
 $fileData = array("total" => $fileNumber, "filelist" => $fileList);
