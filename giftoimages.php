@@ -45,16 +45,29 @@ $gifHeight = $gifImage["height"];
 $path = "./downloaded.gif";
 $result = apiCall($gifUrl);
 file_put_contents($path, $result);
-exec("convert ". $path . " -coalesce imgs/gif_%05d.gif");
+$fileExt = (!empty($_GET['format']) && isset($_GET['format'])) ? $_GET['format'] : "gif";
+if ($fileExt != "jpeg" && $fileExt != "jpg" && $fileExt != "gif" && $fileExt != "png") {
+        $message = "Requested format is not supported. Valid image formats are jpg, jpeg, gif & png.";
+        $status = array("code" => 415, "description" => "Unsupported Media Type", "message" => $message);
+        $data = array("status" => $status);
+        header( "HTTP/1.1 415 Unsupported Media Type" );
+        header("Access-Control-Allow-Origin: *");
+        echo(json_encode($data));
+        return;
+}
+
+exec("convert ". $path . " -coalesce imgs/gif_%05d." . escapeshellarg($fileExt));
 
 // All out
-$fileList = glob($folder . "/*.gif");
+$fileList = glob($folder . "/*." . $fileExt);
 $fileNumber = count($fileList);
 
+$message = "The request is OK.";
+$status = array("code" => 200, "description" => "200 OK", "message" => $message);
 $gifDimensions = array("width" => $gifWidth, "height" => $gifHeight);
 $gifData = array("url" => $gifUrl, "dimensions" => $gifDimensions);
 $fileData = array("total" => $fileNumber, "filelist" => $fileList);
-$data = array("searchphrase" => $search, "files" => $fileData, "original" => $gifData);
+$data = array("status" => $status, "searchphrase" => $search, "files" => $fileData, "original" => $gifData);
 
 header( "HTTP/1.1 200 OK" );
 header("Access-Control-Allow-Origin: *");
