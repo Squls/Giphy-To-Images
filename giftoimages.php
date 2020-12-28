@@ -32,7 +32,7 @@ foreach($files as $file){
 }
 
 // In with the new
-$apiKey = "dhyKXWGT4tRHkK24m6bKPudLr1wWMdJa";
+$apiKey = "";
 $url = "https://api.giphy.com/v1/gifs/search?api_key=" . $apiKey . "&q=" . $search;
 $result = apiCall($url);
 $json = json_decode($result, true);
