@@ -2,7 +2,7 @@
 ## GIF To Images
 
 Simple PHP endpoint script that gets GIF from Giphy's API and splits it's frames into seperate images.
-This was deviced as part of a project for [EMF Camp](https://emfcamp.org)'s 2018 camp badge, the [TiLDA MK4](https://badge.emfcamp.org/wiki/TiLDA_MK4 "TiLDA MK4 Wiki").
+This was devised as part of a project for [EMF Camp](https://emfcamp.org)'s 2018 camp badge, the [TiLDA MK4](https://badge.emfcamp.org/wiki/TiLDA_MK4 "TiLDA MK4 Wiki").
 
 ### Use
 
